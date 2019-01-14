@@ -1,0 +1,33 @@
+{
+  "name": "nodepop",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "SET DEBUG=nodepop:* & npm start",
+    "startmongo": "C:/\"Program Files\"/MongoDB/Server/3.6/bin/mongod.exe --dbpath C:/Users/basanta79/Documents/MongoData/db",
+    "startmongoshell": "C:/\"Program Files\"/MongoDB/Server/3.6/bin/mongo.exe"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "eslint": "^5.12.0",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "mongoose": "^5.4.3",
+    "morgan": "~1.9.0"
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/basanta79/kc_md_node.git"
+  },
+  "author": "Pablo L Basanta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/basanta79/kc_md_node/issues"
+  },
+  "homepage": "https://github.com/basanta79/kc_md_node#readme",
+  "description": ""
+}
