@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "SET DEBUG=nodepop:* & npm start",
+    "dev": "SET DEBUG=nodepop:* & nodemon",
     "startmongo": "C:/\"Program Files\"/MongoDB/Server/3.6/bin/mongod.exe --dbpath C:/Users/basanta79/Documents/MongoData/db",
     "startmongoshell": "C:/\"Program Files\"/MongoDB/Server/3.6/bin/mongo.exe"
   },
