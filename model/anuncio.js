@@ -11,3 +11,5 @@ var anuncioSchema = mongoose.Schema({
 });
 
 mongoose.model('Anuncio', anuncioSchema);
+
+module.exports = anuncioSchema;
