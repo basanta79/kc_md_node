@@ -4,13 +4,14 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "SET DEBUG=nodepop:* & nodemon",
+    "dev": "SET DEBUG=nodepop:* & nodemon ./bin/www",
     "startmongo": "C:/\"Program Files\"/MongoDB/Server/3.6/bin/mongod.exe --dbpath C:/Users/basanta79/Documents/MongoData/db",
     "startmongoshell": "C:/\"Program Files\"/MongoDB/Server/3.6/bin/mongo.exe",
     "initdb": "node ./Scripts/install_db.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
+    "cross-env": "^5.2.0",
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
     "eslint": "^5.12.0",
