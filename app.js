@@ -1,3 +1,4 @@
+'use strict';
 
 var createError = require('http-errors');
 var express = require('express');
@@ -24,9 +25,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//app.use('/', indexRouter);
+/**
+ * global variables
+ */
+app.locals.titulo = 'Nodepop';
+
+/**
+ * rutas de nuestro api
+ */
+// app.use('/', indexRouter);
 app.use('/', require('./routes/index'));
-//app.use('/users', usersRouter);
+// app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
