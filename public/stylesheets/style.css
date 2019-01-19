@@ -6,3 +6,12 @@ body {
 a {
   color: #00B7FF;
 }
+
+.ad{
+  background-color: rgb(207, 179, 179);
+}
+
+.ad-img{
+  width: 15%;
+  height: 15%;
+}

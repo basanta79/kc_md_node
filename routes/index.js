@@ -14,12 +14,12 @@ router.get('/anuncios', async(req, res, next) => {
     try{
         const anuncios = await Anuncio.listar();
         res.locals.anuncios = anuncios;
-        console.log(anuncios);
+        //console.log(anuncios);
     } catch (err){
         res.locals.err = err;
-        console.log('hubo un error ', err);
+        //console.log('hubo un error ', err);
     }
-    
+
     res.render('index');
 });
 

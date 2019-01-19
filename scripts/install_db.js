@@ -1,11 +1,9 @@
 'use strict';
 
 var readLine = require('readline'); 
-var mongoose = require('mongoose');
-var lib = require('../lib/connectMongoose');
-var db = mongoose.connection;
-var schema = require('../model/anuncio');
-var Anuncio = mongoose.model('anuncio', schema);
+var db = require('../lib/connectMongoose');
+//var schema = require('../model/anuncio');
+var Anuncio = require('../model/anuncio'); // mongoose.model('anuncio', schema);
 var arrInitValues = require('../data/initAnuncios.json');
 
 //console.log(arrInitValues);

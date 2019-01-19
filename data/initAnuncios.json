@@ -1,5 +1,5 @@
 [
-    { "nombre": "bicicleta", "venta": true, "precio": 200.00, "foto": "bicicleta.jpg", "tags":["lifestyle", "vehicle"]},
+    { "nombre": "bicicleta", "venta": true, "precio": 200.00, "foto": "https://www.shutterstock.com/es/image-vector/city-bicycle-vintage-style-wooden-crate-1033784752", "tags":["lifestyle", "vehicle"]},
     { "nombre": "patinete", "venta": true, "precio": 99.00, "foto": "bicicleta.jpg", "tags":["lifestyle", "vehicle"]},
     { "nombre": "maceta", "venta": false, "precio": 245.99, "foto": "bicicleta.jpg", "tags":["lifestyle", "home"]},
     { "nombre": "posavasos de star wars", "venta": true, "precio": 0.99, "foto": "bicicleta.jpg", "tags":["home", "star wars"]}
