@@ -2,8 +2,7 @@
 
 var readLine = require('readline'); 
 var db = require('../lib/connectMongoose');
-//var schema = require('../model/anuncio');
-var Anuncio = require('../model/anuncio'); // mongoose.model('anuncio', schema);
+var Anuncio = require('../model/anuncio');
 var arrInitValues = require('../data/initAnuncios.json');
 
 //console.log(arrInitValues);

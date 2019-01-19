@@ -23,7 +23,7 @@
             <h3><%= anuncio.nombre %></h3>
             <p> <% if (anuncio.venta) { %> Se vende <% } else { %> Se busca <% } %></p>
           </header>
-          <img class="ad-img" src="<%= './images/' + anuncio.foto %>" alt="<%= anuncio._id %>">
+          <img class="ad-img" src="<%= anuncio.foto %>" alt="<%= anuncio._id %>">
           <p><%= anuncio.tags %></p>
           <p><%= anuncio.precio %></p>
         </div>
