@@ -12,7 +12,12 @@ router.get('/', function(req, res, next) {
 
 router.get('/anuncios', async(req, res, next) => {
     try{
-        const anuncios = await Anuncio.listar();
+        // Get param values
+        const venta = req.query.venta;
+        const startsWith = req.query.startsWith;
+        console.log(startsWith);
+
+        const anuncios = await Anuncio.listar(venta, startsWith);
         res.locals.anuncios = anuncios;
         //console.log(anuncios);
     } catch (err){

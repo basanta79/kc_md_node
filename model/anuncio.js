@@ -10,9 +10,18 @@ var anuncioSchema = mongoose.Schema({
     tags: [String],
 });
 
-anuncioSchema.statics.listar = () => {
+anuncioSchema.statics.listar = (venta, startsWith) => {
     const query = Anuncio.find();
+    if (venta !== undefined) { 
+        query.where('venta', venta);
+    };
+   /*  console.log(startsWith);
+    if (startsWith !== undefined) { 
+        query.where('venta', venta);
+    }; */
 
+
+    
     return query.exec();
 };
 
