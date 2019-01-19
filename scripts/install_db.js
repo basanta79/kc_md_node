@@ -1,94 +1,67 @@
 'use strict';
 
+var readLine = require('readline'); 
 var mongoose = require('mongoose');
 var lib = require('../lib/connectMongoose');
 var db = mongoose.connection;
 var schema = require('../model/anuncio');
 var Anuncio = mongoose.model('anuncio', schema);
+var arrInitValues = require('../data/initAnuncios.json');
 
-var arr = [
-    {
-        nombre: 'Star Wars',
-        edad: 27
-    },
-    {
-        nombre: 'pepeeee',
-        edad: 27
+//console.log(arrInitValues);
+
+db.once('open', async () => {
+    try{
+        //Ask to user for erase confirmation.
+        const respuesta = await askUser('Estás seguro que quieres que borre TODA la base de datos? (no) ');
+
+        if (respuesta !== 'si'){
+            console.log('proceso cancelado');
+            process.exit(0); // Exit clean
+        }
+
+        await initDataBase(Anuncio, arrInitValues, 'anuncios');
+
+        db.close();
+
+    } catch(err){
+        console.log('Hubo un error ', err);
+        process.exit(0);
     }
-];
-
-db.once('open', function() {
-
-    var promInsert = Anuncio.create({nombre: 'hola caracola'});
-
-    promInsert.then((data) => {
-        console.log(data);
-        db.close();
-    });
-
-    /**
-     * hacer consultas
-     */
-   /*  var prom = Anuncio.find().exec();
-
-    prom.then((data) => {
-        console.log(data);
-        db.close();
-    }); */
-
 });
 
-    /* Anuncio.insertMany(arr, function(error, docs) {
-        if (error) {
-            console.log(error);
-        } else {
-            console.log(docs);
-        }
-    }) */
 
-
-
-    /* Anuncio.insertMany(arr).then((data) => {
-        console.log(data);
-        Anuncio.find().exec((err, document) => {
-            if (err) {
-                console.log(err);
-            }
-            console.log(document);
-            db.close();
+/**
+ * @description This function shows a question in cosole, and waits for user answer. 
+ * @param {String} question String to show in console
+ * @return Promise.
+ */
+function askUser(question){
+    const promAnswer = new Promise((resolve, reject) =>{
+        const interfaz = readLine.createInterface({
+            input: process.stdin,
+            output: process.stdout
         });
-    }).catch((err) => {
-        console.log('Ha ocurrido un error: ', err);
-        db.close();
-    }); */
-    
-    
+        interfaz.question(question,answer =>{
+            interfaz.close();
+            resolve(answer);
+        })
+    })
+    return promAnswer;
+}
 
+/**
+ * @description Function to delete documents in model given in arguments, and insert documents
+ * given in initArray. Description is only for console.log literal.
+ * @param {Mongoose.Model} model 
+ * @param {json} initArray 
+ * @param {String} description 
+ * @return {Promise} Promise
+ */
+async function initDataBase(model, initArray, description){
+    const deleted = await model.deleteMany();
+    console.log(`Se han eliminado ${deleted.n} ${description}.`);
 
-
-
-
-/* console.log(Anuncio.find()); */
-
-
-
-/* {
-            nombre: 'nombre2',
-            venta: 'true',
-            precio: 231.8,
-            foto: 'cosa.jpg',
-            tags: [
-                'lifestayle',
-                'home'
-            ]
-        },
-        {
-            nombre: 'nombre3',
-            venta: 'true',
-            precio: 233.8,
-            foto: 'cosa3.jpg',
-            tags: [
-                'lifestayle',
-                'home'
-            ]
-        } */
+    const inserted = await model.insertMany(initArray);
+    console.log(`Se han añadido ${inserted.length} ${description}.`);
+}
