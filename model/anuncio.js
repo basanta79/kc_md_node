@@ -12,14 +12,15 @@ var anuncioSchema = mongoose.Schema({
 
 anuncioSchema.statics.listar = (venta, startsWith) => {
     const query = Anuncio.find();
+
     if (venta !== undefined) { 
         query.where('venta', venta);
     };
-   /*  console.log(startsWith);
-    if (startsWith !== undefined) { 
-        query.where('venta', venta);
-    }; */
 
+    console.log(startsWith);
+    if (startsWith !== undefined) { 
+        query.where({nombre: { $regex: "^" + startsWith }});
+    }
 
     
     return query.exec();

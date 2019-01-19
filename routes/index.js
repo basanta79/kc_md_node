@@ -14,7 +14,7 @@ router.get('/anuncios', async(req, res, next) => {
     try{
         // Get param values
         const venta = req.query.venta;
-        const startsWith = req.query.startsWith;
+        const startsWith = req.query.startswith;
         console.log(startsWith);
 
         const anuncios = await Anuncio.listar(venta, startsWith);
