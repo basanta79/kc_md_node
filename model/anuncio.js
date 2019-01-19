@@ -10,19 +10,23 @@ var anuncioSchema = mongoose.Schema({
     tags: [String],
 });
 
-anuncioSchema.statics.listar = (venta, startsWith) => {
+anuncioSchema.statics.listar = (venta, startsWith, priceQuery) => {
     const query = Anuncio.find();
 
     if (venta !== undefined) { 
         query.where('venta', venta);
-    };
-
-    console.log(startsWith);
-    if (startsWith !== undefined) { 
-        query.where({nombre: { $regex: "^" + startsWith }});
     }
 
-    
+    if (startsWith !== undefined) {
+        query.where({ nombre: { $regex: "^" + startsWith } });
+    }
+
+    if (priceQuery !== undefined) {
+            query.where({ precio: priceQuery });
+    }
+
+    //console.log(limiteInferior + " " + limiteSuperior);
+
     return query.exec();
 };
 
