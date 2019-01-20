@@ -25,10 +25,7 @@ anuncioSchema.statics.listar = (skip, limit, venta, startsWith, priceQuery, tags
             query.where({ precio: priceQuery });
     }
 
-    if (tagsQuery !== undefined) {
-        console.log(tagsQuery);
-        query.where(tagsQuery);
-    }
+    query.where(createTagQuery(tagsQuery));
     query.skip(skip);
     query.limit(limit);
     query.sort(sort);
@@ -37,6 +34,28 @@ anuncioSchema.statics.listar = (skip, limit, venta, startsWith, priceQuery, tags
 
     return query.exec();
 };
+
+/**
+ * Returns a Query string for mongoDB to search one or more tag
+ * inside a list of them.
+ * Returns undefined if parameter is not present.
+ * @param {String} list
+ * @return {object} valid query for mongoose, or empty if param was not present
+ */
+function createTagQuery(list) {
+    var arrValues = [];
+    var queryString = {};
+
+    if (list !== undefined) {
+        const tags = list.split(' ');
+        tags.forEach((element) => {
+            arrValues.push({ 'tags': element });
+        })
+        queryString = { $or: arrValues };
+    }
+
+    return queryString;
+}
 
 const Anuncio = mongoose.model('Anuncio', anuncioSchema);
 
