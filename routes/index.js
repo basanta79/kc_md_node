@@ -19,10 +19,11 @@ router.get('/anuncios', async (req, res, next) => {
         const querytags = createTagQuery(req.query.tags);
         const skip = parseInt(req.query.skip);
         const limit = parseInt(req.query.limit);
+        const sort = req.query.sort;
         console.log(`skip = ${skip}`);
         console.log(`limit = ${limit}`);
 
-        const anuncios = await Anuncio.listar(skip, limit, venta, nombre, queryString, querytags);
+        const anuncios = await Anuncio.listar(skip, limit, venta, nombre, queryString, querytags, sort);
         res.locals.anuncios = anuncios;
         //console.log(anuncios);
     } catch (err){
@@ -43,7 +44,7 @@ function createTagQuery(list){
     var queryString = {};
 
     if (list !== undefined) {
-        const tags = list.split(',');
+        const tags = list.split(' ');
         tags.forEach(element => {
             arrValues.push({ 'tags': element });
         })
