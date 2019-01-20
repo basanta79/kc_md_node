@@ -15,10 +15,14 @@ router.get('/anuncios', async (req, res, next) => {
         // Get param values
         const venta = req.query.venta;
         const nombre = req.query.nombre;
-        const queryString = createPriceQuery(req.query.precio)
-        console.log(queryString);
+        const queryString = createPriceQuery(req.query.precio);
+        const querytags = createTagQuery(req.query.tags);
+        const skip = parseInt(req.query.skip);
+        const limit = parseInt(req.query.limit);
+        console.log(`skip = ${skip}`);
+        console.log(`limit = ${limit}`);
 
-        const anuncios = await Anuncio.listar(venta, nombre, queryString);
+        const anuncios = await Anuncio.listar(skip, limit, venta, nombre, queryString, querytags);
         res.locals.anuncios = anuncios;
         //console.log(anuncios);
     } catch (err){
@@ -28,6 +32,27 @@ router.get('/anuncios', async (req, res, next) => {
 
     res.render('index');
 });
+
+/**
+ * Returns a Query string for mongoDB to search one or more tag inside a list of them. 
+ * Returns undefined if parameter is not present.
+ * @param {String Array} list 
+ */
+function createTagQuery(list){
+    var arrValues=[];
+    var queryString = {};
+
+    if (list !== undefined) {
+        const tags = list.split(',');
+        tags.forEach(element => {
+            arrValues.push({ 'tags': element });
+        })
+        queryString = { $or: arrValues };
+        return queryString;
+    } else {
+        return list;
+    }
+}
 
 /**
  * Converts the input parameter into a queryString to send to Mongo. 
