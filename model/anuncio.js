@@ -13,18 +13,14 @@ var anuncioSchema = mongoose.Schema({
 anuncioSchema.statics.listar = (skip, limit, venta, startsWith, priceQuery, tagsQuery, sort) => {
     const query = Anuncio.find();
 
-    if (venta !== undefined) { 
+    if (venta !== undefined) {
         query.where('venta', venta);
     }
 
     if (startsWith !== undefined) {
         query.where({ nombre: { $regex: "^" + startsWith } });
     }
-
-    if (priceQuery !== undefined) {
-            query.where({ precio: priceQuery });
-    }
-
+    query.where(createPriceQuery(priceQuery));
     query.where(createTagQuery(tagsQuery));
     query.skip(skip);
     query.limit(limit);
@@ -39,7 +35,7 @@ anuncioSchema.statics.listar = (skip, limit, venta, startsWith, priceQuery, tags
  * Returns a Query string for mongoDB to search one or more tag
  * inside a list of them.
  * Returns undefined if parameter is not present.
- * @param {String} list
+ * @param {String} list query from request object
  * @return {object} valid query for mongoose, or empty if param was not present
  */
 function createTagQuery(list) {
@@ -52,6 +48,39 @@ function createTagQuery(list) {
             arrValues.push({ 'tags': element });
         })
         queryString = { $or: arrValues };
+    }
+
+    return queryString;
+}
+
+/**
+ * Converts the input parameter into a queryString to send to Mongo.
+ * Whether the parameter is not present, returns undefined
+ * param must be a number, two numbers separated by "-"
+ * or a number with a "-"before or aftes.
+ * e.g.:
+ * 100  : Must match 100
+ * 100- : Must be higher or equal than 100
+ * -100 : Must be lower or equal than 100
+ * 50-100 : Must be between 50 and 100, included both.
+ *
+ * @param {string} param query from request object
+ * @return {object} valid query for mongoose, or empty if param was not present
+ */
+function createPriceQuery(param) {
+    var queryString = {};
+
+    if (param !== undefined) {
+        const precio = param.split('-');
+        if (precio[1] == undefined) {
+            queryString = { precio: precio[0] };
+        } else if (precio[1] == 0) {
+            queryString = { precio: { '$gte': precio[0] } };
+        } else if (precio[0] == 0) {
+            queryString = { precio: { '$lte': precio[1] } };
+        } else {
+            queryString = { precio: { '$gte': precio[0], '$lte': precio[1] } };
+        }
     }
 
     return queryString;

@@ -15,15 +15,15 @@ router.get('/anuncios', async (req, res, next) => {
         // Get param values
         const venta = req.query.venta;
         const nombre = req.query.nombre;
-        const queryString = createPriceQuery(req.query.precio);
-        const querytags = req.query.tags;
+        const price = req.query.precio;
+        const tags = req.query.tags;
         const skip = parseInt(req.query.skip);
         const limit = parseInt(req.query.limit);
         const sort = req.query.sort;
         console.log(`skip = ${skip}`);
         console.log(`limit = ${limit}`);
 
-        const anuncios = await Anuncio.listar(skip, limit, venta, nombre, queryString, querytags, sort);
+        const anuncios = await Anuncio.listar(skip, limit, venta, nombre, price, tags, sort);
         res.locals.anuncios = anuncios;
         //console.log(anuncios);
     } catch (err){
@@ -34,38 +34,5 @@ router.get('/anuncios', async (req, res, next) => {
     res.render('index');
 });
 
-
-
-/**
- * Converts the input parameter into a queryString to send to Mongo. 
- * Whether the parameter is not present, returns undefined
- * param must be a number, two numbers separated by "-" or a number with a "-"before or aftes.
- * e.g.: 
- * 100  : Must match 100
- * 100- : Must be higher or equal than 100
- * -100 : Must be lower or equal than 100
- * 50-100 : Must be between 50 and 100, included both.
- *
- * @param {string} param 
- */
-function createPriceQuery(param){
-    var queryString
-    
-    if(param !== undefined){
-        const precio = param.split("-");
-        if (precio[1]==undefined){
-            queryString=precio[0];
-        } else if (precio[1]==0){
-            queryString = { '$gte': precio[0]};
-        } else if (precio[0]==0){
-            queryString = { '$lte': precio[1]};
-        } else {
-            queryString = { '$gte': precio[0] , '$lte': precio[1]};
-        }
-        return queryString;
-    }else{
-        return param;
-    }
-}
 
 module.exports = router;
