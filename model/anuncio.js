@@ -1,13 +1,17 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var tags = ['health', 'home', 'lifestyle', 'work', 'motor', 'mobile'];
 
 var anuncioSchema = mongoose.Schema({
     nombre: String,
     venta: Boolean,
     precio: Number,
     foto: String,
-    tags: [String],
+    tags: {
+        type: [String],
+        enum: tags
+    }
 });
 
 anuncioSchema.statics.listar = (skip, limit, venta, startsWith, priceQuery, tagsQuery, sort) => {
@@ -29,6 +33,10 @@ anuncioSchema.statics.listar = (skip, limit, venta, startsWith, priceQuery, tags
     //console.log(limiteInferior + " " + limiteSuperior);
 
     return query.exec();
+};
+
+anuncioSchema.statics.listarTags = () => {
+    return tags;
 };
 
 /**

@@ -1,15 +1,15 @@
 # Practica bootcamp web-VI
 
 ## Objetivos de la practica
-- [ ] - Desarrollar una api
-  - [ ] - Lista de anuncios paginada (skip y limit).
-    - [ ] - Lista de anuncios con filtros.
-        - [ ] - precio min y precio max
-        - [ ] - tipo de anuncio. (venta o busqueda)
-        - [ ] - lista de tags
-        - [ ] - Nombre del articulo (que empieze por)
-    - [ ] - Creación de un anuncio
-    - [ ] - Petición de listado de tags
+- [X] - Desarrollar una api
+  - [X] - Lista de anuncios paginada (skip y limit).
+    - [X] - Lista de anuncios con filtros.
+        - [X] - precio min y precio max
+        - [X] - tipo de anuncio. (venta o busqueda)
+        - [X] - lista de tags
+        - [X] - Nombre del articulo (que empieze por)
+    - [X] - Creación de un anuncio
+    - [X] - Petición de listado de tags
 
 - [X] - Desarrollar la interfaz web
   - [X] - Lista de anuncios paginada (skip y limit).
