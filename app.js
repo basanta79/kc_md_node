@@ -6,10 +6,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-/* var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');  */
-
-
 var app = express();
 require('./lib/connectMongoose');
 require('./model/anuncio');
@@ -26,16 +22,20 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 /**
- * global variables
+ * Global variables
  */
 app.locals.titulo = 'Nodepop';
 
 /**
- * rutas de nuestro api
+ * Rutas de nuestro api
  */
-// app.use('/', indexRouter);
+app.use('/apiv1/anuncios', require('./routes/apiv1/anuncios'));
+
+ /**
+  * Rutas de nuestro sitio web
+  */
 app.use('/', require('./routes/index'));
-// app.use('/users', usersRouter);
+// app.use('/users', require('./routes/users'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
