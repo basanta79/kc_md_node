@@ -7,7 +7,8 @@ const Anuncio = require('../model/anuncio');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'nodepop' });
+    res.redirect('/anuncios');
+    //res.render('index', { title: 'nodepop' });
 });
 
 router.get('/anuncios', async (req, res, next) => {
