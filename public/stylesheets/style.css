@@ -8,10 +8,64 @@ a {
 }
 
 .ad{
+  margin: 10px;
+  border: 0.2em;
+  border-style: solid;
+  border-radius: 1em;
   background-color: rgb(207, 179, 179);
+  display: grid;
+  grid-gap: 1em;
+  padding: 1em;
+  grid-template-columns: 60% 40%;
+  grid-template-areas:
+    "name type"
+    "img price"
+    "tags tags"
+}
+/* 
+.ad-name{
+  grid-area: ad-n;
 }
 
+.ad-type{
+  grid-area: ad-t
+}
+
+.ad-image{
+  grid-area: ad-c;
+}
+
+.ad-price{
+  grid-area: ad-p;
+}
+
+.ad-tags{
+  grid-area: ad-t;
+}
+ */
 .ad-img{
-  width: 15%;
-  height: 15%;
+  width: 150px;
+  height: 150px;
+}
+
+.header{
+  grid-area: header;
+}
+
+.content{
+  grid-area: content;
+}
+
+.footer{
+  grid-area: footer;
+}
+
+.wrapper{
+  display: grid;
+  grid-template-columns: 20% auto 10%;
+  grid-template-rows: 10vh auto 10vh;
+  grid-template-areas: 
+    "header header header"
+    "sideleft content siderigth"
+    "footer footer footer";
 }

@@ -5,31 +5,46 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= titulo %></h1>
-    <p>Welcome to <%= titulo %></p>
-
-    <% if (locals.err) { %>
+    <div class="wrapper">
       
-      <p> <%= err %>  </p>
-    <% } %> 
-    
-    <% if (locals.anuncios) { %>
-
-      <p> Hemos encontrado: <%= anuncios.length %> anuncios. </p>
-      
-      <% anuncios.forEach( anuncio => { %>
-        <div class="ad">
-          <header>
-            <h3><%= anuncio.nombre %></h3>
-            <p> <% if (anuncio.venta) { %> Se vende <% } else { %> Se busca <% } %></p>
-          </header>
-          <img class="ad-img" src="<%= anuncio.foto %>" alt="<%= anuncio._id %>">
-          <p><%= anuncio.tags %></p>
-          <p><%= anuncio.precio %></p>
-        </div>
-      <%}); %>
-       
-    <% } %> 
-    
+      <div class="header">
+        <h1><%= titulo %></h1>
+      </div>
+      <div class="content">
+        
+            <% if (locals.err) { %>
+              
+              <p> <%= err %>  </p>
+            <% } %> 
+            
+            <% if (locals.anuncios) { %>
+        
+              <p> Hemos encontrado: <%= anuncios.length %> anuncios. </p>
+              
+              <% anuncios.forEach( anuncio => { %>
+                
+                  <div class="ad">
+                    
+                      <header>
+                        <h3><%= anuncio.nombre %></h3>
+                      </header>
+                    
+                      <p> <% if (anuncio.venta) { %> Se vende <% } else { %> Se busca <% } %></p>
+                    
+                      <img class="ad-img" src="<%= anuncio.foto %>" alt="<%= anuncio._id %>">
+                    
+                      <p><%= anuncio.precio %></p>
+                    
+                      <p><%= anuncio.tags %></p>
+                  </div>
+                  
+                
+              <%}); %>
+            
+            <% } %> 
+            
+      </div>
+      <div class="footer"></div>
+    </div>
   </body>
 </html>
